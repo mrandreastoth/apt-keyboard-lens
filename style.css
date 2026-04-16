@@ -1,0 +1,644 @@
+/* ── Reset & base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* key sizing */
+  --ku: 3rem;
+  --kh: 3rem;
+  --kgap: 0.28rem;
+  --kradius: 0.4rem;
+
+  /* palette – light (default) */
+  --bg:           #f0f0f0;
+  --surface:      #ffffff;
+  --surface-2:    #f7f7f7;
+  --border:       #ddd;
+  --text:         #1a1a1a;
+  --text-muted:   #666;
+  --accent:       #2d6be4;
+
+  /* key colours */
+  --key-bg:       #e4e4e4;
+  --key-border:   #b0b0b0;
+  --key-shadow:   #9a9a9a;
+  --key-text:     #1a1a1a;
+  --key-muted:    #888;
+
+  /* status colours */
+  --match-bg:     #d4edda;
+  --match-border: #82c99a;
+  --diff-bg:      #fff3cd;
+  --diff-border:  #f0c040;
+  --missing-bg:   #f8d7da;
+  --missing-border:#e08090;
+
+  --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* Auto dark: OS prefers dark and no explicit theme override */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:           #1a1a1a;
+    --surface:      #252525;
+    --surface-2:    #2e2e2e;
+    --border:       #3a3a3a;
+    --text:         #e8e8e8;
+    --text-muted:   #888;
+    --accent:       #5b8ef0;
+
+    --key-bg:       #333333;
+    --key-border:   #505050;
+    --key-shadow:   #1a1a1a;
+    --key-text:     #e8e8e8;
+    --key-muted:    #666;
+
+    --match-bg:     #1a3328;
+    --match-border: #2d6648;
+    --diff-bg:      #3a2e00;
+    --diff-border:  #7a6000;
+    --missing-bg:   #3a1a1e;
+    --missing-border:#7a3040;
+  }
+}
+
+/* Explicit dark override */
+[data-theme="dark"] {
+  --bg:           #1a1a1a;
+  --surface:      #252525;
+  --surface-2:    #2e2e2e;
+  --border:       #3a3a3a;
+  --text:         #e8e8e8;
+  --text-muted:   #888;
+  --accent:       #5b8ef0;
+
+  --key-bg:       #333333;
+  --key-border:   #505050;
+  --key-shadow:   #1a1a1a;
+  --key-text:     #e8e8e8;
+  --key-muted:    #666;
+
+  --match-bg:     #1a3328;
+  --match-border: #2d6648;
+  --diff-bg:      #3a2e00;
+  --diff-border:  #7a6000;
+  --missing-bg:   #3a1a1e;
+  --missing-border:#7a3040;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── Header ───────────────────────────────────────────── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.header-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.header-apt  { color: var(--accent); }
+.header-name { color: var(--text); }
+
+.header-tagline {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.theme-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.theme-select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.875rem;
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+/* ── Main layout ──────────────────────────────────────── */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Controls bar ─────────────────────────────────────── */
+.controls-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.controls-presets {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.control-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.control-group select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.9rem;
+  font-family: var(--font);
+  cursor: pointer;
+  min-width: 140px;
+}
+
+/* ── Buttons ──────────────────────────────────────────── */
+.btn {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.38rem 0.8rem;
+  font-size: 0.875rem;
+  font-family: var(--font);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.btn:hover:not(:disabled) { background: var(--border); }
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-swap {
+  font-size: 1.1rem;
+  padding: 0.35rem 0.6rem;
+  align-self: flex-end;
+}
+
+/* ── View bar (above keyboard) ────────────────────────── */
+.view-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.view-select-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.view-select-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.view-select-group select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.875rem;
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+/* ── Status legend pills ──────────────────────────────── */
+.status-legend {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border: 1.5px solid transparent;
+}
+
+.pill-match   { background: var(--match-bg);   border-color: var(--match-border);   }
+.pill-diff    { background: var(--diff-bg);    border-color: var(--diff-border);    }
+.pill-missing { background: var(--missing-bg); border-color: var(--missing-border); }
+.pill-neutral { background: var(--key-bg);     border-color: var(--key-border);     color: var(--text-muted); }
+
+/* ── Keyboard section ─────────────────────────────────── */
+.keyboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.keyboard-scroll {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 0.6rem;
+}
+
+/* ── Keyboard ─────────────────────────────────────────── */
+.keyboard {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.1rem;
+  width: fit-content;
+}
+
+.keyboard.visible {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kgap);
+}
+
+.kb-body {
+  display: flex;
+  gap: calc(var(--ku) * 0.6);
+  align-items: flex-start;
+}
+
+.kb-main, .kb-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kgap);
+}
+
+/* Extra gap below F-key row */
+.kb-row--frow {
+  margin-bottom: calc(var(--ku) * 0.25);
+}
+
+.kb-row {
+  display: flex;
+  gap: var(--kgap);
+  align-items: stretch;
+}
+
+/* ── Key ──────────────────────────────────────────────── */
+.key {
+  flex: 0 0 auto;
+  height: var(--kh);
+  background: var(--key-bg);
+  border: 1.5px solid var(--key-border);
+  border-radius: var(--kradius);
+  box-shadow: 0 2px 0 var(--key-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem 0.3rem;
+  cursor: default;
+  user-select: none;
+  position: relative;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+/* Tooltip shown on hover for keys with data-tooltip */
+.key[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--bg);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 0.78rem;
+  font-family: var(--mono);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.key-spacer {
+  flex: 0 0 auto;
+  height: var(--kh);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.key.key-fixed .key-legend {
+  color: var(--key-muted);
+  font-size: 0.65rem;
+}
+
+.key.key-match   { background: var(--match-bg);   border-color: var(--match-border);   }
+.key.key-diff    { background: var(--diff-bg);    border-color: var(--diff-border);    }
+.key.key-missing { background: var(--missing-bg); border-color: var(--missing-border); }
+
+/* Modifier keys are clickable — show pointer and subtle hover */
+.key.key-modifier { cursor: pointer; }
+.key.key-modifier:hover:not(.key-modifier-active) {
+  background: var(--border);
+}
+
+/* Active modifier key — blue accent background, white text */
+.key.key-modifier-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+.key.key-modifier-active .key-legend {
+  color: #fff;
+}
+
+.key-legend {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--key-text);
+  text-align: center;
+  line-height: 1.1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.key-code-hint {
+  font-size: 0.5rem;
+  color: var(--key-muted);
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+}
+
+/* Dual view: two stacked labels */
+.key-dual-top,
+.key-dual-bot {
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.key-dual-top {
+  color: #4070d0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.1rem;
+  margin-bottom: 0.1rem;
+}
+
+.key-dual-bot { color: #c05020; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .key-dual-top { color: #7aacf0; }
+  :root:not([data-theme="light"]) .key-dual-bot { color: #f07050; }
+}
+[data-theme="dark"] .key-dual-top { color: #7aacf0; }
+[data-theme="dark"] .key-dual-bot { color: #f07050; }
+
+/* ISO Enter top cap */
+.key.key-iso-enter-top {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  opacity: 0.55;
+  justify-content: flex-start;
+  padding-top: 0.35rem;
+}
+.key.key-iso-enter-top::after {
+  content: '↵';
+  font-size: 0.65rem;
+  color: var(--key-muted);
+}
+
+/* Space bar */
+.key[title="SPCE"] .key-legend { display: none; }
+
+/* ── Layout panels (below keyboard) ───────────────────── */
+.layout-panels {
+  display: flex;
+  gap: 1rem;
+}
+
+.layout-panel {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.layout-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.layout-panel-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.layout-panel-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dot-physical  { background: #5b8ef0; }
+.dot-software  { background: #e07040; }
+
+textarea {
+  width: 100%;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  resize: vertical;
+  tab-size: 4;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+textarea[readonly] {
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: default;
+}
+
+/* ── Load layout dialog ────────────────────────────────── */
+dialog {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.dialog-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.layout-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.layout-list-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.45rem 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+
+.layout-list-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 700px) {
+  .controls-bar    { flex-direction: column; align-items: flex-start; }
+  .controls-presets { flex-direction: column; align-items: flex-start; }
+  .layout-panels   { flex-direction: column; }
+  .view-bar        { flex-direction: column; align-items: flex-start; }
+  :root { --ku: 2.5rem; --kh: 2.5rem; }
+}

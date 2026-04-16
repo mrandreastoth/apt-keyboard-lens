@@ -1,0 +1,19 @@
+[
+  { "key": "us",     "label": "US (American English)",      "file": "us.json" },
+  { "key": "uk",     "label": "UK (British English)",       "file": "uk.json" },
+  { "key": "be",     "label": "BE (Belgian French)",        "file": "be.json" },
+  { "key": "br",     "label": "BR (Brazilian Portuguese)",  "file": "br.json" },
+  { "key": "ch-de",  "label": "CH (Swiss German)",          "file": "ch-de.json" },
+  { "key": "ch-fr",  "label": "CH (Swiss French)",          "file": "ch-fr.json" },
+  { "key": "de",     "label": "DE (German)",                "file": "de.json" },
+  { "key": "dk",     "label": "DK (Danish)",                "file": "dk.json" },
+  { "key": "es",     "label": "ES (Spanish)",               "file": "es.json" },
+  { "key": "fr",     "label": "FR (French)",                "file": "fr.json" },
+  { "key": "hu",     "label": "HU (Hungarian)",             "file": "hu.json" },
+  { "key": "hu-prog","label": "HU (Hungarian Programmer)",  "file": "hu-prog.json" },
+  { "key": "it",     "label": "IT (Italian)",               "file": "it.json" },
+  { "key": "la",     "label": "LA (Latin American Spanish)","file": "la.json" },
+  { "key": "no",     "label": "NO (Norwegian)",             "file": "no.json" },
+  { "key": "pt",     "label": "PT (Portuguese)",            "file": "pt.json" },
+  { "key": "se",     "label": "SE (Swedish)",               "file": "se.json" }
+]

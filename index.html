@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>apt-keyboard-lens</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <span class="header-apt">apt</span><span class="header-name">-keyboard-lens</span>
+    </div>
+    <p class="header-tagline">Compare physical keycap legends with your software keyboard layout</p>
+    <div class="header-actions">
+      <label class="theme-label" for="themeSelect">Theme</label>
+      <select id="themeSelect" class="theme-select">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Controls: platform + shape + preset selectors -->
+    <section class="controls-bar">
+      <div class="control-group">
+        <label for="platformSelect">Platform</label>
+        <select id="platformSelect">
+          <option value="pc" selected>PC</option>
+          <option value="mac">Mac</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="geometrySelect">Keyboard shape</label>
+        <select id="geometrySelect">
+          <!-- populated by app.js based on platform -->
+        </select>
+      </div>
+
+      <div class="controls-presets">
+        <div class="control-group">
+          <label for="physicalPreset">Physical</label>
+          <select id="physicalPreset">
+            <!-- populated by app.js -->
+          </select>
+        </div>
+
+        <button id="swapBtn" class="btn btn-swap" title="Swap physical ↔ software">⇄</button>
+
+        <div class="control-group">
+          <label for="softwarePreset">Software</label>
+          <select id="softwarePreset">
+            <!-- populated by app.js -->
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Keyboard visualisation -->
+    <section class="keyboard-section">
+      <div class="view-bar">
+        <div class="view-select-group">
+          <label for="viewMode">View</label>
+          <select id="viewMode">
+            <option value="dual" selected>Both</option>
+            <option value="physical">Physical</option>
+            <option value="software">Software</option>
+          </select>
+        </div>
+        <div class="status-legend">
+          <span class="pill pill-match">Match</span>
+          <span class="pill pill-diff">Different</span>
+          <span class="pill pill-missing">Missing</span>
+          <span class="pill pill-neutral">Not compared</span>
+        </div>
+      </div>
+
+      <div class="keyboard-scroll">
+        <div id="keyboard" class="keyboard"></div>
+      </div>
+      <p id="emptyState" class="empty-state">Select a layout from the dropdowns above to get started.</p>
+    </section>
+
+    <!-- Layout panels (below keyboard) -->
+    <div class="layout-panels">
+      <div class="layout-panel">
+        <div class="layout-panel-header">
+          <span class="layout-panel-title">
+            <span class="dot dot-physical"></span> Physical layout
+          </span>
+          <div class="layout-panel-actions">
+            <button id="physicalLoadBtn" class="btn" disabled>Load layout</button>
+            <button id="physicalClearBtn" class="btn" disabled>Clear</button>
+          </div>
+        </div>
+        <textarea id="physicalInput" rows="10" spellcheck="false" readonly
+          placeholder="Select Custom above to enter a custom layout."></textarea>
+      </div>
+
+      <div class="layout-panel">
+        <div class="layout-panel-header">
+          <span class="layout-panel-title">
+            <span class="dot dot-software"></span> Software layout
+          </span>
+          <div class="layout-panel-actions">
+            <button id="softwareLoadBtn" class="btn" disabled>Load layout</button>
+            <button id="softwareClearBtn" class="btn" disabled>Clear</button>
+          </div>
+        </div>
+        <textarea id="softwareInput" rows="10" spellcheck="false" readonly
+          placeholder="Select Custom above to enter a custom layout."></textarea>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Load layout dialog -->
+  <dialog id="loadLayoutDialog">
+    <h3 class="dialog-title">Load layout</h3>
+    <ul class="layout-list" id="layoutList"></ul>
+    <div class="dialog-footer">
+      <button id="dialogCancelBtn" class="btn">Cancel</button>
+    </div>
+  </dialog>
+
+  <footer>
+    <a href="https://github.com/mrandreastoth/apt-keyboard-lens" target="_blank">apt-keyboard-lens</a>
+    &nbsp;·&nbsp; by Andreas Toth
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
